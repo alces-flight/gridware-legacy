@@ -1,0 +1,6 @@
+#!/bin/bash
+for a in $(echo $MODULEPATH | sed 's/:/ /g'); do
+  if [ -f "${a}/.aliases" ]; then
+    cat "${a}/.aliases"
+  fi
+done

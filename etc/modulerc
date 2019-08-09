@@ -1,0 +1,23 @@
+#%Module1.0#####################################################################
+##
+## Alces Clusterware - Environment modules initialization file
+## Copyright (c) 2008-2016 Alces Software Ltd
+##
+################################################################################
+module-log warn null
+
+if { [info exists ::env(cw_TRACE)] } {
+    puts stderr " -> $::ModulesCurrentModulefile"
+}
+
+if { [info exists ::env(MODULES_ALCES_TCL)] == 1 } {
+    if { [file exists $::env(MODULES_ALCES_TCL)] } {
+        if { [namespace exists alces] == 0 } { source $::env(MODULES_ALCES_TCL) }
+        alces once {
+            catch {exec $::env(flight_GRIDWARE_root)/bin/gridware-module-aliases} cw_aliases
+            eval $cw_aliases
+        }
+    } else {
+        unset ::env(MODULES_ALCES_TCL)
+    }
+}

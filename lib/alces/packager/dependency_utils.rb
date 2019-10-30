@@ -10,22 +10,15 @@ module Alces
 
         def generate_dependency_script(package, phase)
           %(#!/bin/bash
-#=Alces-Gridware-Dependencies:2
-
-require files
-files_load_config clusterware
-
-case "${cw_VERSION:-1.0.0}" in
-      1.[012345678].*\)
-        # Fall back to old dependency behaviour for Clusterware <= 1.8.0
-        #{generate_legacy_dependency_script(package, phase)}
-        exit 0
-    esac
-
+set -x
+#=Alces-Gridware-Dependencies:3
 if [ $UID -ne 0 ]; then
-  SUDO='sudo -E'
+  SUDO="sudo ALCES_CONFIG_PATH=\"${ALCES_CONFIG_PATH}\" flight_GRIDWARE_root=\"${flight_GRIDWARE_root}\" "
 fi
-${SUDO} #{ENV['cw_ROOT']}/bin/alces gridware dependencies #{strip_variant(package.path)} --phase #{phase} --non-interactive)
+if [ "${flight_ROOT}" ]; then
+  executor="${flight_ROOT}/bin/flexec ruby "
+fi
+${SUDO}${executor}#{ENV['flight_GRIDWARE_root']}/bin/gridware dependencies #{strip_variant(package.path)} --phase #{phase} --non-interactive --trace)
         end
 
         def generate_legacy_dependency_script(package, phase)
@@ -161,7 +154,7 @@ fi)
         end
 
         def whitelist_file
-          File.join(Config.gridware, 'etc', 'whitelist.yml')
+          Alces::Tools::Config.find('whitelist',false)
         end
 
         def empty_whitelist

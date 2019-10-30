@@ -74,7 +74,7 @@ module Alces
               say 'PERMISSION DENIED'.color(:red)
               packages_without_permission << pkg
               STDERR.puts "Permission denied when trying to install #{pkg}"
-              make_install_request(pkg)
+              #make_install_request(pkg)
 
             end
           else
@@ -82,8 +82,9 @@ module Alces
           end
         end
         if !packages_without_permission.empty?
-          STDERR.puts 'Some packages failed to install. A request has been filed with your system administrator.'
-          raise PermissionDeniedError, 'Some packages failed to install. A request has been filed with your system administrator.'
+          m = "Some packages failed to install. Please request the following packages are installed by your cluster administrator: #{packages_without_permission.join(", ")}"
+          STDERR.puts m
+          raise PermissionDeniedError, m
         end
       end
 

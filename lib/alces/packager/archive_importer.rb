@@ -199,7 +199,12 @@ module Alces
                   s = File.read(fname).gsub('_DEPOT_',depot_path)
                   File.write(fname,s)
                 else
-                  patch_binary(fname, depot_path.split('/').tap {|x| a = x.pop; x << '_^DEPOT_'}.join('/'), depot_path)
+                  #patch_binary(fname, depot_path.split('/').tap {|x| a = x.pop; x << '_^DEPOT_'}.join('/'), depot_path)
+                  if ENV['flight_GRIDWARE_binary_enabled'] == 'true'
+                    patch_binary(fname, '/opt/gridware/depots/_^DEPOT_', depot_path)
+                  else
+                    raise "Unable to patch binaries as binary patching isn't enabled"
+                  end
                 end
               end
 
@@ -269,7 +274,12 @@ module Alces
                 s = File.read(fname).gsub('_DEPOT_',depot_path)
                 File.write(fname,s)
               else
-                patch_binary(fname, depot_path.split('/').tap {|x| a = x.pop; x << '_^DEPOT_'}.join('/'), depot_path)
+                #patch_binary(fname, depot_path.split('/').tap {|x| a = x.pop; x << '_^DEPOT_'}.join('/'), depot_path)
+                if ENV['flight_GRIDWARE_binary_enabled'] == 'true'
+                  patch_binary(fname, '/opt/gridware/depots/_^DEPOT_', depot_path)
+                else
+                  raise "Unable to patch binaries as binary patching isn't enabled"
+                end
               end
             end
 

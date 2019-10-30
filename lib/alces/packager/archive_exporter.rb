@@ -225,7 +225,12 @@ module Alces
                 File.write(f,s)
                 rewritten_files << f.gsub(File.join(dir,''),'')
               elsif patch_pattern_matches?(f.gsub(File.join(dir,''),''))
-                patch_binary(f, depot_path, depot_path.split('/').tap {|x| a = x.pop; x << '_^DEPOT_'}.join('/'))
+                if ENV['flight_GRIDWARE_binary_enabled'] == 'true'
+                  # patch_binary(f, depot_path, depot_path.split('/').tap {|x| a = x.pop; x << '_^DEPOT_'}.join('/'))
+                  patch_binary(f, depot_path, '/opt/gridware/depots/_^DEPOT_')
+                else
+                  raise "Unable to patch binaries as binary patching isn't enabled"
+                end
                 rewritten_files << f.gsub(File.join(dir,''),'')
               elsif options.accept_elf && elf_file?(f)
                 # accept ELF binaries which don't have hardcoded lib paths

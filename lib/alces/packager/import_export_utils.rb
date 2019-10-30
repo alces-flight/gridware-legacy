@@ -47,7 +47,7 @@ module Alces
           io.read
         end
         hex_data.gsub!(old_hex, new_hex)
-        IO.popen("#{ENV['cw_ROOT']}/opt/xxd/bin/xxd -r -p", "rb+") do |io|
+        IO.popen("/usr/bin/xxd -r -p", "rb+") do |io|
           res = "".force_encoding(Encoding::ASCII_8BIT)
           c = 0
           hex_data.each_char do |b|
@@ -71,7 +71,7 @@ module Alces
       end
 
       def hex_for(s)
-        IO.popen("#{ENV['cw_ROOT']}/opt/xxd/bin/xxd -g 0 -u -ps -c 256", "r+") do |io|
+        IO.popen("/usr/bin/xxd -g 0 -u -ps -c 256", "r+") do |io|
           io.print(s)
           io.close_write
           io.read

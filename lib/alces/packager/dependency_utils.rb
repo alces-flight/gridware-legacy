@@ -13,7 +13,7 @@ module Alces
 set -x
 #=Alces-Gridware-Dependencies:3
 if [ $UID -ne 0 ]; then
-  SUDO="sudo ALCES_CONFIG_PATH=\"${ALCES_CONFIG_PATH}\" flight_GRIDWARE_root=\"${flight_GRIDWARE_root}\" "
+  SUDO="sudo -E "
 fi
 if [ "${flight_ROOT}" ]; then
   executor="${flight_ROOT}/bin/flexec ruby "

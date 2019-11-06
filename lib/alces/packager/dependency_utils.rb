@@ -154,7 +154,8 @@ fi)
         end
 
         def whitelist_file
-          Alces::Tools::Config.find('whitelist',false)
+          Alces::Tools::Config.find('whitelist',false) ||
+            File.join(ENV.fetch('flight_ENV_dir', Config.gridware),'etc','whitelist.yml')
         end
 
         def empty_whitelist

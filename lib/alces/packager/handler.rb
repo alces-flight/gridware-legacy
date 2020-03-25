@@ -75,7 +75,7 @@ module Alces
 
       def handle_action(action, args)
         Bundler.with_clean_env do
-          ENV['PATH'] = '/usr/sbin:/usr/bin'
+          ENV['PATH'] = '/usr/sbin:/usr/bin:/sbin:/bin'
           @handler = Handler.new(*args)
           if action_requires_package_repo_update?(action)
             update_package_repositories

@@ -131,7 +131,7 @@ module Alces
 
       program :application, "Alces Gridware"
       program :name, PROGRAM_NAME
-      program :version, '1.5.2'
+      program :version, '1.5.3'
       program :description, 'Compile and install gridware for local environment.'
 
       global_option '--yes', 'Answer positively to any confirmations (DANGEROUS)'

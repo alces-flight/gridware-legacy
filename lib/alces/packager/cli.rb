@@ -1,5 +1,5 @@
 #==============================================================================
-# Copyright (C) 2007-2015 Stephen F. Norledge and Alces Software Ltd.
+# Copyright (C) 2007-2020 Stephen F. Norledge and Alces Software Ltd.
 #
 # This file/package is part of Alces Clusterware.
 #
@@ -131,7 +131,7 @@ module Alces
 
       program :application, "Alces Gridware"
       program :name, PROGRAM_NAME
-      program :version, '1.5.3'
+      program :version, '1.5.4'
       program :description, 'Compile and install gridware for local environment.'
 
       global_option '--yes', 'Answer positively to any confirmations (DANGEROUS)'

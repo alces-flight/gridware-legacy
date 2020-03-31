@@ -1,5 +1,5 @@
 #==============================================================================
-# Copyright (C) 2007-2015 Stephen F. Norledge and Alces Software Ltd.
+# Copyright (C) 2007-2020 Stephen F. Norledge and Alces Software Ltd.
 #
 # This file/package is part of Alces Clusterware.
 #
@@ -419,8 +419,8 @@ EOF
         doing 'Purge'
         with_spinner do
           rm_r(dest_dir) if File.exists?(dest_dir)
-          FileUtils.rmdir(File.dirname(dest_dir))
-          FileUtils.rmdir(File.dirname(File.dirname(dest_dir)))
+          FileUtils.rmdir(File.dirname(dest_dir)) rescue nil
+          FileUtils.rmdir(File.dirname(File.dirname(dest_dir))) rescue nil
           # rm(modulefile_name) if File.exists?(modulefile_name)
           ModuleTree.remove(opts[:depot], modulefile_name)
         end

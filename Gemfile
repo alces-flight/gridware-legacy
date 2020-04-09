@@ -20,7 +20,6 @@
 # https://github.com/alces-software/clusterware
 #==============================================================================
 source 'http://rubygems.org'
-source 'http://gems.alces-software.com'
 
 # The vanilla version of 'do' has a ::Fixnum deprecation warning, the vhost-api
 # fork removes the use of ::Fixnum and replaces it with Integer

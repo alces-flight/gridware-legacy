@@ -74,13 +74,18 @@ module Alces
       private
 
       def handle_action(action, args)
-        Bundler.with_clean_env do
+        block = lambda do
           ENV['PATH'] = '/usr/sbin:/usr/bin:/sbin:/bin'
           @handler = Handler.new(*args)
           if action_requires_package_repo_update?(action)
             update_package_repositories
           end
           @handler.send(action)
+        end
+        if Bundler.respond_to?(:with_unbundled_env)
+          Bundler.with_unbundled_env(&block)
+        else
+          Bundler.with_clean_env(&block)
         end
       end
 

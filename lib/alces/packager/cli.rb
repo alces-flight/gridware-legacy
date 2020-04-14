@@ -20,6 +20,7 @@
 # https://github.com/alces-software/clusterware
 #==============================================================================
 require 'commander'
+require_relative 'patches/highline-ruby_27_compat'
 require 'commander/delegates'
 require 'alces/packager/handler'
 #require 'highline'

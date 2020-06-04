@@ -1,4 +1,5 @@
 require 'yaml'
+require 'aw'
 
 module Alces
   module Packager

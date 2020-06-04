@@ -110,11 +110,25 @@ module Alces
       end
 
       def installed?(pkg)
-        return system(sprintf(DependencyUtils.check_command, pkg))
+        Aw.fork! do
+          if Process.uid == 0
+            nobody = Etc.getpwnam('nobody')
+            Process::Sys.setgid(nobody.gid)
+            Process::Sys.setuid(nobody.uid)
+          end
+          system(sprintf(DependencyUtils.check_command, pkg))
+        end
       end
 
       def available?(pkg)
-        return system(sprintf(DependencyUtils.available_command, pkg))
+        Aw.fork! do
+          if Process.uid == 0
+            nobody = Etc.getpwnam('nobody')
+            Process::Sys.setgid(nobody.gid)
+            Process::Sys.setuid(nobody.uid)
+          end
+          system(sprintf(DependencyUtils.available_command, pkg))
+        end
       end
 
       def have_permission_to_install?(pkg)

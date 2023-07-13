@@ -1,7 +1,8 @@
 #%Module1.0#####################################################################
 ##
-## Alces Clusterware - Library module file
+## Alces Gridware - Library module file
 ## Copyright (c) 2008-2015 Alces Software Ltd
+## Copyright (c) 2016-2023 Alces Flight Ltd
 ##
 ## path: libs/gcc/system
 ################################################################################
@@ -24,6 +25,7 @@ if { [namespace exists alces] == 0 } {
         }
         proc ::alces {_ module} { return $module }
         proc ::search {_ _ _} { }
+        proc ::assert_packages { } { }
     }
 }
 
